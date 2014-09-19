@@ -17,20 +17,22 @@ FirefoxREPL.prototype = {
       if (err) throw err;
 
       console.log(tab.url.yellow);
-
-      this.setTab(tab)
-
-      this.repl = repl.start({
-        prompt: this.getPrompt(),
-        eval: this.eval.bind(this),
-        input: process.stdin,
-        output: process.stdout,
-        writer: this.writer.bind(this)
-      });
-
+      this.setTab(tab);
+      this.startRepl();
       this.defineCommands();
     }.bind(this))
   },
+
+  startREPL: function(opts) {
+    opts = opts || {};
+    this.repl = repl.start({
+      prompt: this.getPrompt(),
+      eval: this.eval.bind(this),
+      input: opts.stdin || process.stdin,
+      output: opts.stdout || process.stdout,
+      writer: this.writer.bind(this)
+    });
+  }
 
   connect: function(options, cb) {
     var client = new FirefoxClient();
