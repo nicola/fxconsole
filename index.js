@@ -31,7 +31,6 @@ FirefoxREPL.prototype = {
     }.bind(this));
   },
 
-
   connect: function(options, cb) {
     var client = new FirefoxClient();
     client.connect(options.port, options.host, function() {
